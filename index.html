@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+
+  <div>
+    <form id="form" method=GET>
+      <label for="uid"> User ID: </label>
+      <input type="text" id="uid" name="uid"> <br>
+      <label for="fname"> First name: </label>
+      <input type="text" id="fname" value=""> <br>
+      <label for="lname"> Last name: </label>
+      <input type="text" id="lname" name="lname" value=""> <br>
+      <label for="birthday">Birthday: </label>
+      <input type="date" id="birthday" name="birthday" value=""> <br>
+      <button type="Submit">Submit</button>
+    </form>
+    <p id="funny"> </p>
+    <p id="ageCheck"> </p>
+    <p id="Xs"> </p>
+  </div>
+
+</body>
+
+</html>
+<script>
+
+  const form = document.getElementById("form");
+  form.onsubmit = (event) => {
+    event.preventDefault();
+    
+    let uid = document.getElementById("uid").value;
+    let fname = document.getElementById("fname").value;
+    let lname = document.getElementById("lname").value;
+    let birthday = document.getElementById("birthday").value;
+
+    testObject = {
+      uid,
+      fname,
+      lname,
+      birthday
+    }
+
+    validationTest = (testObject) => {
+      var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      var lowercase = "abcdefghijklmnopqrstuvwyz";
+      var digits = "0123456789";
+      var ucaseFlag = contains(uid, uppercase)
+      var lcaseFlag = contains(uid, lowercase)
+      var digitsFlag = contains(uid, digits)
+      if (testObject.uid == "") {
+         alert("User ID must not be blank.");
+      } else if (testObject.uid.length >= 8 && testObject.uid.length <= 12 && ucaseFlag && lcaseFlag && digitsFlag) {
+         console.log("Validation successful!");
+      } else 
+      {alert("Validation failed. User ID must contain 8-12 characters include a lowercase letter, an uppercase letter, and a number.")}
+      if (testObject.fname == "") {
+         alert("First name cannot be blank.");
+      } else if (testObject.lname == "") {
+         alert("Last name cannot be blank.");
+      } else if (testObject.birthday == "") {
+        return alert("Birthday cannot be blank.");
+      }
+    }
+    function contains(uid, allowedChars) {
+      for (i = 0; i < uid.length; i++) {
+        var char = uid.charAt(i);
+        if (allowedChars.indexOf(char) >= 0) { return true; }
+      } return false;
+    }
+    validationTest(testObject);
+
+
+  }
+  function newContent() {
+    const today = new Date();
+    console.log(new Date())
+    let msec1 = Date.parse(today)
+    console.log(msec1)
+    var birthDate = document.getElementById("birthday").value
+    console.log(birthDate)
+    let msec2 = Date.parse(birthDate);
+    console.log(msec2)
+    let daysAlive = Math.ceil( (msec1 - msec2) / (86400000) )
+    console.log(daysAlive)
+    var ageCheck = document.getElementById("ageCheck")
+    var funny = document.getElementById("funny")
+    if (daysAlive < 365 * 18) {
+      document.getElementById("ageCheck").innerHTML="You are too young to be in this class."
+
+    } else {
+      document.getElementById("funny").innerHTML =` You have been breathing for ${daysAlive} days. Breathing is important. Keep it up!`;
+
+      
+    }
+  } birthday.addEventListener("focusout", newContent);
+  
+  function myX() {
+    let str = "" 
+    let myX = ""
+    var xArray = []
+  for (let i = 1; i < 21; i++) {
+  myX += str.padStart(i, "X" ) +"<br/>"  ; 
+  } document.getElementById("Xs").innerHTML=myX;
+  
+  }
+  myX()
+  
+</script>
